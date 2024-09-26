@@ -18,7 +18,7 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2021-02-01",
-            "name": "myWebApp",
+            "name": "myWebAppButKindaUnique",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', 'myAppServicePlan')]"
