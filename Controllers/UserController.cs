@@ -8,23 +8,22 @@ public class UserController : Controller
 {
     public static System.Collections.Generic.List<User> userlist = new System.Collections.Generic.List<User>();
 
-    // GET: User
-    public ActionResult Index()
-    {
-        // Implement the Index method here
-        return View(userlist);
-    }
-
-    // GET: User/Details/5
-    public ActionResult Details(int id)
-    {
-        var user = userlist.FirstOrDefault(u => u.Id == id);
-        if (user == null)
+        // GET: User
+        public ActionResult Index()
         {
-            return NotFound();
+            return View(userlist);
         }
-        return View(user);
-    }
+
+        // GET: User/Details/5
+        public ActionResult Details(int id)
+        {
+            var user = userlist.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+        }
 
         // GET: User/Create
         public ActionResult Create()
@@ -69,10 +68,11 @@ public class UserController : Controller
             {
                 existingUser.Name = user.Name;
                 existingUser.Email = user.Email;
-                // Update other properties as needed
+                // Update other fields as necessary
 
                 return RedirectToAction(nameof(Index));
             }
+
             return View(user);
         }
 
@@ -99,5 +99,18 @@ public class UserController : Controller
 
             userlist.Remove(user);
             return RedirectToAction(nameof(Index));
+        }
+
+        // GET: User/Search
+        public ActionResult Search(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+            return View(new List<User>());
+            }
+
+            var results = userlist.Where(u => u.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || 
+                              u.Email.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList();
+            return View(results);
         }
 }

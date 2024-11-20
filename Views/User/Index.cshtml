@@ -4,11 +4,17 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Index hello</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", "User")
 </p>
+<form asp-action="Search" method="get">
+    <div class="form-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Search users..." />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
 <table class="table">
     <tr>
         <th>
